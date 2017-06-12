@@ -91,11 +91,14 @@ class Vision(object):
       cornerPoints.append((corners['bottomRight'][0], corners['topRight'][1]))
 
     # show the output image
-    print(cornerPoints)
-    print(self.realCoordinates)
-    print(cv2.solvePnP(self.realCoordinates, np.array(cornerPoints, dtype=np.float), self.cameraMatrix, self.distortionMatrix))
-    cv2.imshow("Image", source)
-    cv2.waitKey(0)
+    # solve PnP problem
+    (result, rotation, translation) = cv2.solvePnP(self.realCoordinates, np.array(cornerPoints, dtype=np.float), self.cameraMatrix, self.distortionMatrix)
+    (rodRotation, jacobian) = cv2.Rodrigues(rotation)
+    print(translation)
+    print([np.dot(rodRotation, translation), np.dot(0, 1)])
+
+    #cv2.imshow("Image", source)
+    #cv2.waitKey(0)
 
 
 visionTest = Vision()
