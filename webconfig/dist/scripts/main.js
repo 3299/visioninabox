@@ -1,0 +1,2 @@
+""!=document.location.hash&&"#"!=document.location.hash||(document.location.hash="#start"),$(document).ready(function(){$(".history-button").click(function(t){if("forward"==$(this).data("movement")){var a=$(".card:target").next(".card").attr("id");void 0!=a&&(document.location.hash=a)}else{var a=$(".card:target").prev(".card").attr("id");void 0!=a&&(document.location.hash=a)}})});
+//# sourceMappingURL=main.js.map
