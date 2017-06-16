@@ -35,13 +35,20 @@ h1 {
   color: white;
   font-weight: 100;
   text-align: center;
-  font-size: 8vh;
+  font-size: 4vw;
   background-color: #212121;
   margin-top: 0;
   margin-bottom: 4vh;
   padding: 1.5vh 0;
   font-family: 'Varela Round', sans-serif;
   letter-spacing: 0.3vh;
+}
+
+img {
+  align-self: center;
+  width: 80%;
+  height: auto;
+  border-radius: $border-radius;
 }
 
 code {
