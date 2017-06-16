@@ -1,3 +1,5 @@
+@import 'mixins';
+
 $border-radius: 5px;
 
 html, body {
@@ -61,6 +63,7 @@ p::first-letter {
 .card {
   display: none;
   overflow-y: scroll;
+  height: 92%;
 
   /* thanks goo.gl/Rg1Rce for the cool effect */
   background:
@@ -85,7 +88,6 @@ p::first-letter {
 
 	/* Opera doesn't support this in the shorthand */
 	background-attachment: local, local, scroll, scroll;
-  flex-grow: 1;
 }
 
 .card:target {
@@ -96,16 +98,28 @@ p::first-letter {
 #history-buttons {
   display: flex;
   width: 100%;
-  height: 5em;
+  height: 8%;
 
   & .history-button:first-child {
-    background-color: #f44336;
+    @include lightenBackgroundHover(#f44336);
     border-bottom-left-radius: $border-radius;
+
+    &:hover {
+      -webkit-box-shadow: -8px 6px 15px 0px rgba(50, 50, 50, 0.9);
+      -moz-box-shadow:    -8px 6px 15px 0px rgba(50, 50, 50, 0.9);
+      box-shadow:         -8px 6px 15px 0px rgba(50, 50, 50, 0.9);
+    }
   }
 
   & .history-button:last-child {
-    background-color: #4CAF50;
+    @include lightenBackgroundHover(#4CAF50);
     border-bottom-right-radius: $border-radius;
+
+    &:hover {
+      -webkit-box-shadow: 7px 7px 15px 0px rgba(50, 50, 50, 0.9);
+      -moz-box-shadow:    7px 7px 15px 0px rgba(50, 50, 50, 0.9);
+      box-shadow:         7px 7px 15px 0px rgba(50, 50, 50, 0.9);
+    }
   }
 
   .history-button {
@@ -120,6 +134,8 @@ p::first-letter {
     overflow: hidden;
     text-transform: uppercase;
     font-family: 'Varela Round', sans-serif;
+    transition-property: all;
+    transition-duration: 0.4s;
   }
 }
 

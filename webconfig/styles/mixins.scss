@@ -1,0 +1,6 @@
+@mixin lightenBackgroundHover($color) {
+  background-color: $color;
+  &:hover {
+    background-color: lighten($color, 2);
+  }
+}
