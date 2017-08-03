@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>visioninabox</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='shoelace.css') }}">
+    <style>
+      body {
+    	  max-width: 45rem;
+    	  padding: 1rem;
+    	  margin: 2rem auto;
+      }
+
+      img {
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="text-center">Capture Images</h1>
+    <img src="{{ url_for('video_feed') }}" class="m-y-medium">
+    <button id="capture" class="button button-block button-info">Capture</button>
+
+    <script>
+    (function() {
+    	document.getElementById("capture").onclick = function() {
+        this.classList.toggle("disabled");
+
+    		var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+          if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            console.log()
+            if (xmlHttp.responseText == "True") {
+              document.getElementById("capture").classList.toggle("disabled");
+            }
+          }
+        }
+    		xmlHttp.open("GET", "/capture", true);
+    		xmlHttp.send(null);
+    	};
+    })();
+    </script>
+  </body>
+</html>

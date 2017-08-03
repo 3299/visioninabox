@@ -13,6 +13,16 @@ $(document).ready(function() {
       var newLocation = $('.card:target').prev('.card').attr('id');
       if (newLocation != undefined) { document.location.hash = newLocation; }
     }
-    // Save data
+  });
+
+  $('#capture-calibration').click(function(event) {
+    var buttonText = $(this).text();
+    $(this).text('...');
+    $(this).addClass('loading');
+    $.get('http://localhost:5000/capture', function(result) {
+      if (result == 'True'){
+        $(this).text(buttonText);
+      }
+    });
   });
 });

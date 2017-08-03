@@ -2,9 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+
+    <title>visioninabox</title>
 
     <link rel="stylesheet" href="styles/main.css">
   </head>
@@ -29,9 +30,21 @@
           </p>
         </div>
       </div>
-      <div class="card" id="next">
+      <div class="card" id="calibration">
         <h1>calibration</h1>
-        <img src="http://localhost:8080/cam.mjpg"/>
+        <div class="card-content">
+          <p>
+            Let's first calculate some parameters unique to your camera.
+          </p>
+          <p>
+            Download and print out this <a href="/pattern.png" download>calibration pattern</a>.  Tape it to something flat, like a piece of plywood, so that it isn't distorted.
+          </p>
+          <img src="http://localhost:5000/camerastream"/>
+          <button class="button button-full-width" id="capture-calibration">Capture</button>
+          <p>
+            Now, hold the calibration pattern at different angles and click 'Capture'.  Try to take at least 10 captures at different angles.
+          </p>
+        </div>
       </div>
       <div id="history-buttons">
         <button class="history-button" data-movement="backward">Back</button>
