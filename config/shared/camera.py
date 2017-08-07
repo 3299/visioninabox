@@ -1,24 +1,13 @@
 import cv2
+import json
 
 class Camera(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
         self.video.set(16, -9)
 
-        self.hsl = {
-            'h': {
-                'min': 0,
-                'max': 1
-            },
-            's': {
-                'min': 0,
-                'max': 1
-            },
-            'l': {
-                'min': 0,
-                'max': 1
-            }
-        }
+        with open('../hsl.json') as file:
+             self.hsl = json.load(file)
 
     def __del__(self):
         self.video.release()
@@ -27,8 +16,8 @@ class Camera(object):
         success, frame = self.video.read()
 
         mask = cv2.inRange(cv2.cvtColor(frame, cv2.COLOR_BGR2HLS),
-          (float(self.hsl['h']['min']) * 255, float(self.hsl['s']['min']) * 255, float(self.hsl['l']['min']) * 255),
-          (float(self.hsl['h']['max']) * 255, float(self.hsl['s']['max']) * 255, float(self.hsl['l']['max']) * 255))
+          (float(self.hsl['h']['min']), float(self.hsl['s']['min']), float(self.hsl['l']['min'])),
+          (float(self.hsl['h']['max']), float(self.hsl['s']['max']), float(self.hsl['l']['max'])))
 
         result = cv2.bitwise_and(frame, frame, mask=mask)
 
@@ -44,6 +33,9 @@ class Camera(object):
             return False
 
     def getHSL(self):
+        with open('../hsl.json') as file:
+             self.hsl = json.load(file)
+
         return self.hsl
 
     def changeHSL(self, hsl):
@@ -56,3 +48,8 @@ class Camera(object):
         elif (hsl['component'] == 'l'):
             hsl.pop('component', 0)
             self.hsl['l'] = hsl
+
+    def saveHSL(self):
+        with open('../hsl.json', 'w') as file:
+            json.dump(self.hsl, file)
+        return True

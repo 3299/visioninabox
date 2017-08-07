@@ -50,6 +50,9 @@ def post():
     elif (request.form['action'] == 'getHSL'):
         return json.dumps(cameraInstance.getHSL())
 
+    elif (request.form['action'] == 'saveHSL'):
+        return str(cameraInstance.saveHSL())
+
     return str(True)
 
 if __name__ == '__main__':

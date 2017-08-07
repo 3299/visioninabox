@@ -14,15 +14,22 @@
       img {
         border-radius: 5px;
       }
+
+      button {
+        margin-top: 5%;
+      }
     </style>
   </head>
   <body>
     <h1 class="text-center">Calibrate</h1>
     <img src="/video_feed" class="m-y-medium">
+    <container id="sidebar">
+      <label>Hue</label><input type="text" data-hsl="h"/>
+      <label>Saturation</label><input type="text" data-hsl="s"/>
+      <label>Lumination</label><input type="text" data-hsl="l"/>
 
-    <label>Hue</label><input type="text" data-hsl="h"/>
-    <label>Saturation</label><input type="text" data-hsl="s"/>
-    <label>Lumination</label><input type="text" data-hsl="l"/>
+      <button id="save" class="button button-info button-block">Save</button>
+    </container>
 
     <script src="static/jquery.min.js"></script>
     <script src="static/ion.rangeSlider.min.js"></script>
