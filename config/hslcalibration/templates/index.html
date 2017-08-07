@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>visioninabox</title>
+    <link rel="stylesheet" href="static/shoelace.css"/>
+    <link rel="stylesheet" href="static/ion.rangeSlider.css"/>
+    <style>
+      body {
+    	  max-width: 45rem;
+    	  padding: 1rem;
+    	  margin: 2rem auto;
+      }
+
+      img {
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="text-center">Calibrate</h1>
+    <img src="/video_feed" class="m-y-medium">
+
+    <label>Hue</label><input type="text" data-hsl="h"/>
+    <label>Saturation</label><input type="text" data-hsl="s"/>
+    <label>Lumination</label><input type="text" data-hsl="l"/>
+
+    <script src="static/jquery.min.js"></script>
+    <script src="static/ion.rangeSlider.min.js"></script>
+    <script src="static/main.js"></script>
+  </body>
+</html>

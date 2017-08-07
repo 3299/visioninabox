@@ -13,31 +13,43 @@
       img {
         border-radius: 5px;
       }
+
+      #calibrate {
+        margin-top: 1%;
+        width: 50%;
+        left: 25%;
+        position: absolute;
+      }
     </style>
   </head>
   <body>
     <h1 class="text-center">Capture Images</h1>
     <img src="{{ url_for('video_feed') }}" class="m-y-medium">
     <button id="capture" class="button button-block button-info">Capture</button>
+    <button id="calibrate" class="button button-inverse">Calibrate</button>
 
     <script>
-    (function() {
-    	document.getElementById("capture").onclick = function() {
-        this.classList.toggle("disabled");
+      function requestOnClick(id, url) {
+        document.getElementById(id).onclick = function() {
+          this.classList.toggle("disabled");
 
-    		var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function() {
-          if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            console.log()
-            if (xmlHttp.responseText == "True") {
-              document.getElementById("capture").classList.toggle("disabled");
+          var xmlHttp = new XMLHttpRequest();
+          xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+              if (xmlHttp.responseText == "True") {
+                document.getElementById(id).classList.toggle("disabled");
+              }
             }
           }
-        }
-    		xmlHttp.open("GET", "/capture", true);
-    		xmlHttp.send(null);
-    	};
-    })();
+          xmlHttp.open("GET", url, true);
+          xmlHttp.send(null);
+        };
+      }
+
+      (function() {
+        requestOnClick("capture", "/capture");
+        requestOnClick("calibrate", "/calibrate");
+      })();
     </script>
   </body>
 </html>
