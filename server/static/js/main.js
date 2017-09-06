@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  // Add active class to tab that matches URL
+  $('a[href="' + window.location.pathname + '"]').parent().addClass('is-active');
+
   // Init and attach listener to range selectors
   $('[data-hsl]').ionRangeSlider({
       type: 'double',
@@ -64,3 +67,25 @@ function changeHSL(component, min, max) {
     data: data
   });
 }
+
+function requestOnClick(id, url) {
+  document.getElementById(id).onclick = function() {
+    this.classList.toggle("disabled");
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+        if (xmlHttp.responseText == "True") {
+          document.getElementById(id).classList.toggle("disabled");
+        }
+      }
+    }
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+  };
+}
+
+(function() {
+  requestOnClick("capture", "/capture");
+  requestOnClick("calibrate", "/calibrate");
+})();

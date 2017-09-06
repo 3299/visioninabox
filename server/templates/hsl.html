@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HSL | visioninabox</title>
+    {% include 'imports.html' %}
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+
+    <div class="columns is-centered">
+      <div class="column is-half is-centered">
+        <section class="section">
+          <img src="/stream">
+        </section>
+        <section class="section">
+          <div class="field">
+            <label class="label">Hue</label><input type="text" data-hsl="h"/>
+          </div>
+          <div class="field">
+            <label class="label">Saturation</label><input type="text" data-hsl="s"/>
+          </div>
+          <div class="field">
+            <label class="label">Lumination</label><input type="text" data-hsl="l"/>
+          </div>
+          <div class="field">
+            <button id="save" class="button is-info is-block is-medium">
+              <span class="icon"><i class="fa fa-floppy-o"></i></span>
+              <span>Save</span>
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

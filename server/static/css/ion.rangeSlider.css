@@ -159,7 +159,7 @@
 .irs-bar,
 .irs-bar-edge,
 .irs-slider {
-    background: url(sprite-skin-flat.png) repeat-x;
+    background: url('../img/sprite-skin-flat.png') repeat-x;
 }
 
 .irs {

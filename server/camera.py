@@ -4,7 +4,6 @@ import json
 class Camera(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
-        self.video.set(16, -9)
 
         with open('../hsl.json') as file:
              self.hsl = json.load(file)
@@ -53,3 +52,6 @@ class Camera(object):
         with open('../hsl.json', 'w') as file:
             json.dump(self.hsl, file)
         return True
+
+    def setExposure(self, value):
+        self.video.set(16, value)

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calibrate | visioninabox</title>
+    {% include 'imports.html' %}
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <!-- TODO: show existing captured images -->
+
+    <div class="columns is-centered">
+      <div class="column is-half is-centered">
+        <section class="section">
+          <img src="/stream">
+        </section>
+        <section class="section">
+          <div class="field">
+            <button id="capture" class="button is-info is-block">Capture</button>
+          </div>
+          <div class="field">
+            <button id="calibrate" class="button is-black is-block">Calibrate</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

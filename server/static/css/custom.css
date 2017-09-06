@@ -1,0 +1,46 @@
+/*body {
+  max-width: 45rem;
+  padding: 1rem;
+  margin: 2rem auto;
+}
+
+img {
+  border-radius: 5px;
+}
+
+button {
+  margin-top: 5%;
+}
+
+body {
+  max-width: 45rem;
+  padding: 1rem;
+  margin: 2rem auto;
+}
+
+img {
+  border-radius: 5px;
+}
+
+#calibrate {
+  margin-top: 1%;
+  width: 50%;
+  left: 25%;
+  position: absolute;
+}*/
+
+img {
+  border-radius: 5px;
+}
+
+.tabs {
+  margin: 1% 0;
+}
+
+.section {
+  padding: 1rem 1.5rem;
+}
+
+.is-block {
+  width: 100%;
+}
