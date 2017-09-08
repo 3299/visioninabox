@@ -51,6 +51,29 @@ $(document).ready(function() {
         }
       });
     });
+    
+    // Event listener for start/stop buttons
+    $('#on, #off').click(function(e) {
+      var element = $(this);
+	    var power = element.attr('id');
+	    var text = element.html();
+	    element.html('. . .');
+	    
+	    $.ajax({
+  		  type: 'POST',
+  		  url: '/post',
+  		  data: {action: power},
+  		  success: function(result) {
+    		  console.log(result);
+    		  if (result == 'True') {
+            element.html('👍');
+            setTimeout(function() {
+              element.html(text);
+            }, 1000)
+          }
+        }
+	    });
+    });
   });
 
 function changeHSL(component, min, max) {

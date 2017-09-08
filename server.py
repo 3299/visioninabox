@@ -8,10 +8,13 @@ gevent.monkey.patch_all()
 from camera import Camera
 from generateCalibration import GenerateCalibration
 
+from controller import VisionMain
+visionController = VisionMain()
+
 app = Flask(__name__)
 
 cameraInstance = Camera()
-runCalibration = GenerateCalibration('frames', '../calibration.json')
+runCalibration = GenerateCalibration('frames', 'calibration.json')
 
 import time
 
@@ -27,25 +30,16 @@ def hslPage():
 def calibratePage():
     return render_template('calibrate.html')
 
-def genStream(camera, processed=False):
+def genStream(camera):
     while True:
-        if (processed == True):
-            frame = camera.getResultFrame()
-        else:
-            frame = camera.get_frame()
-            
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + camera.get_frame() + b'\r\n')
         time.sleep(0.005) # yes, this delay is intentional.
                           # maybe it's a hack, but hey, it works.
 
 @app.route('/stream')
 def stream():
     return Response(genStream(cameraInstance), mimetype='multipart/x-mixed-replace; boundary=frame')
-
-@app.route('/streamResult')
-def streamResult():
-    return Response(genStream(cameraInstance, processed=True), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/post', methods=['POST'])
 def post():
@@ -60,6 +54,14 @@ def post():
 
     elif (request.form['action'] == 'setExposure'):
         return str(cameraInstance.setExposure(int(request.form['exposure'])))
+        
+    elif (request.form['action'] == 'on' or request.form['action'] == 'off'):
+        if (request.form['action'] == 'on'):
+          visionController.start()
+        else:
+          visionController.stop()
+          
+        return str(True);
 
     return str(True)
 
@@ -87,5 +89,5 @@ def calibrate():
 
 
 if __name__ == '__main__':
-    gevent_server = gevent.pywsgi.WSGIServer(('', 5000), app)
+    gevent_server = gevent.pywsgi.WSGIServer(('', 80), app)
     gevent_server.serve_forever()

@@ -5,7 +5,7 @@ class Camera(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
 
-        with open('../hsl.json') as file:
+        with open('hsl.json') as file:
              self.hsl = json.load(file)
 
     def __del__(self):
@@ -21,6 +21,7 @@ class Camera(object):
         result = cv2.bitwise_and(frame, frame, mask=mask)
 
         # encode into JPG and return
+        result = cv2.resize(result, (0,0), fx=0.5, fy=0.5) # resize for better performance
         ret, jpeg = cv2.imencode('.jpg', result)
         return jpeg.tobytes()
 

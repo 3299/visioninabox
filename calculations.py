@@ -4,7 +4,7 @@ import numpy as np
 import time
 
 class Vision(object):
-  def __init__(self, hslRange, coordinates, cameraMatrix):
+  def __init__(self, source, hslRange, coordinates, cameraMatrix):
     self.hslRange = hslRange
     self.focalLength = 980
     self.realCoordinates = np.array(coordinates, dtype=np.float)
@@ -12,13 +12,19 @@ class Vision(object):
     self.cameraMatrix = np.array(cameraMatrix['matrix'], dtype=np.float)
 
     self.distortionMatrix = np.array(cameraMatrix['distortion'], dtype=np.float)
-
-  def getStrips(self, image):
-    # Filter by HSL values
-    thresholdImg = cv2.inRange(cv2.cvtColor(image, cv2.COLOR_BGR2HLS),
+    
+  def getFrame(self):
+    if (self.processedFrame):
+      return self.processedFrame
+    else:
+      return False   
+  
+  def filterHSL(self, frame):
+    return cv2.inRange(cv2.cvtColor(frame, cv2.COLOR_BGR2HLS),
       (self.hslRange['hue']['min'], self.hslRange['sat']['min'], self.hslRange['lum']['min']),
       (self.hslRange['hue']['max'], self.hslRange['sat']['max'], self.hslRange['lum']['max']))
 
+  def getStrips(self, image):
     # Get contours
     img, contours, hierarchy = cv2.findContours(thresholdImg, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -45,19 +51,24 @@ class Vision(object):
   def run(self, source):
     # start FPS timer
     fpsStart = time.time()
+    
+    frame = source.read()
 
     # Get size of source
-    height = np.size(source, 0)
-    width = np.size(source, 1)
+    width = source.get(3)  # float
+    height = source.get(4)
 
     cornerPoints = []
+    
+    frame = filterHSL(frame)
+    self.processedFrame = frame
 
-    for strip in self.getStrips(source):
+    for strip in self.getStrips(frame):
       corners = self.getCorners(strip)
-      cv2.circle(source, corners['topLeft'], 4, (0, 0, 255), -1)
-      cv2.circle(source, corners['topRight'], 4, (0, 255, 0), -1)
-      cv2.circle(source, corners['bottomLeft'], 4, (255, 0, 0), -1)
-      cv2.circle(source, corners['bottomRight'], 4, (255, 255, 0), -1)
+      cv2.circle(frame, corners['topLeft'], 4, (0, 0, 255), -1)
+      cv2.circle(frame, corners['topRight'], 4, (0, 255, 0), -1)
+      cv2.circle(frame, corners['bottomLeft'], 4, (255, 0, 0), -1)
+      cv2.circle(frame, corners['bottomRight'], 4, (255, 255, 0), -1)
 
       cornerPoints.append((corners['topLeft'][0], corners['topLeft'][1]))
       cornerPoints.append((corners['topRight'][0], corners['topRight'][1]))
